@@ -1,0 +1,97 @@
+{
+  "$schema": "https://biomejs.dev/schemas/1.8.3/schema.json",
+  "organizeImports": {
+    "enabled": true
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "lineWidth": 100
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single",
+      "jsxQuoteStyle": "single"
+    }
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "a11y": {
+        "noSvgWithoutTitle": "off",
+        "useKeyWithClickEvents": "off"
+      },
+      "complexity": {
+        "noExcessiveCognitiveComplexity": "error",
+        "useSimplifiedLogicExpression": {
+          "level": "error",
+          "fix": "unsafe"
+        }
+      },
+      "correctness": {
+        "noUnusedImports": "error",
+        "noUnusedVariables": "error",
+        "useHookAtTopLevel": "error"
+      },
+      "nursery": {
+        "noDuplicateElseIf": "error",
+        "noEvolvingTypes": "error",
+        "noUnusedFunctionParameters": "error",
+        "noUselessStringConcat": {
+          "level": "error",
+          "fix": "unsafe"
+        },
+        "noUselessUndefinedInitialization": "error",
+        "noYodaExpression": "error",
+        "useSortedClasses": {
+          "level": "error",
+          "fix": "unsafe",
+          "options": {
+            "attributes": ["classNames"],
+            "functions": ["cva", "twJoin", "twMerge"]
+          }
+        }
+      },
+      "performance": {
+        "noBarrelFile": "error"
+      },
+      "style": {
+        "noNegationElse": "error",
+        "useCollapsedElseIf": "error",
+        "useNamingConvention": {
+          "level": "error",
+          "options": {
+            "strictCase": false,
+            "conventions": [
+              {
+                "selector": { "kind": "objectLiteralProperty" },
+                "formats": ["PascalCase", "camelCase"]
+              }
+            ]
+          }
+        },
+        "useForOf": "error",
+        "useShorthandArrayType": "error",
+        "useShorthandAssign": "error"
+      },
+      "suspicious": {
+        "noEmptyBlockStatements": "error",
+        "noRedeclare": "off",
+        "useAwait": "error"
+      }
+    },
+    "ignore": [
+      "env.d.ts",
+      "utils/misc.ts",
+      "utils/supabase/database.ts",
+      "utils/supabase/database-extended.ts"
+    ]
+  },
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true,
+    "defaultBranch": "main"
+  }
+}
