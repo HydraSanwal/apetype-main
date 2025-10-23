@@ -25,6 +25,11 @@ import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { RiEarthFill, RiLink, RiPencilFill } from 'react-icons/ri';
 import { twJoin } from 'tailwind-merge';
+type UserStatsType = {
+  startedTests: number;
+  completedTests: number;
+  timeTyping: number;
+};
 
 const ProfileEditModal = dynamic(() =>
   import('@/components/profile/ProfileEditModal').then(({ ProfileEditModal }) => ProfileEditModal),
@@ -35,9 +40,10 @@ const SetImageModal = dynamic(() =>
 
 export default function AccountPage() {
   const { user, updateUser } = useUser();
-  const { data: userStats } = useQuery(getUserStatsById(supabase, user?.id), {
-    enabled: !!user?.id,
-  });
+ const { data: userStats } = useQuery<UserStatsType>(getUserStatsById(supabase, user?.id), {
+  enabled: !!user?.id,
+});
+
   const { completedTests = 0 } = userStats ?? {};
   const [imageType, setImageType] = useState<'avatar' | 'banner'>('avatar');
   const [setImageModalOpened, setImageModalHandler] = useDisclosure(false);
@@ -79,12 +85,13 @@ export default function AccountPage() {
       : { aspect: 4, initialShape: 'rect', targetHeight: 300, targetWidth: 1200 };
 
   return (
+    
     <Transition className='flex w-full flex-col gap-6 self-center'>
       <UserDetails
         user={user}
-        startedTests={userStats?.startedTests}
-        completedTests={userStats?.completedTests}
-        timeTyping={userStats?.timeTyping}
+        startedTests={userStats?.startedTests ?? 0}
+completedTests={userStats?.completedTests ?? 0}
+timeTyping={userStats?.timeTyping ?? 0}
         actions={{
           avatar: (
             <Tooltip className='bg-bg' label='Change avatar'>

@@ -68,7 +68,7 @@ function ChartTooltip({ position: { top, left }, data, disabled }: ChartTooltipP
       style={{ top, left }}
     >
       {data && (
-        <>
+        
           <div className='flex flex-col gap-1'>
             {data.dataPoints.map((data) => (
               <div key={data?.dataset.label ?? ''} className='flex items-center gap-1.5'>
@@ -82,7 +82,7 @@ function ChartTooltip({ position: { top, left }, data, disabled }: ChartTooltipP
               </div>
             ))}
           </div>
-        </>
+      
       )}
     </div>
   );

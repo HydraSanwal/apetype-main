@@ -72,7 +72,7 @@ export const PasswordStrength = memo(function PasswordStrength({
           <Tooltip
             className='max-w-xs'
             label={
-              <>
+              
                 <div className='flex flex-col gap-1 text-sm'>
                   {result.feedback.warning && (
                     <Text className='text-[length:inherit] text-error'>
@@ -85,7 +85,7 @@ export const PasswordStrength = memo(function PasswordStrength({
                     </Text>
                   ))}
                 </div>
-              </>
+              
             }
           >
             <div className='cursor-help text-text transition-colors'>
