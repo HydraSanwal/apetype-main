@@ -36,14 +36,6 @@
       },
       "nursery": {
         "noDuplicateElseIf": "error",
-        "noEvolvingTypes": "error",
-        "noUnusedFunctionParameters": "error",
-        "noUselessStringConcat": {
-          "level": "error",
-          "fix": "unsafe"
-        },
-        "noUselessUndefinedInitialization": "error",
-        "noYodaExpression": "error",
         "useSortedClasses": {
           "level": "error",
           "fix": "unsafe",
