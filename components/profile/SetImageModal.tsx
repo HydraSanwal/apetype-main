@@ -270,6 +270,8 @@ export function SetImageModal({
                 restrictPosition
                 style={{}}
                 mediaProps={{}}
+                cropperProps={{}}
+                keyboardStep={1}
                 onCropChange={setCrop}
                 onCropComplete={(_: Area, croppedAreaPixels: Area) =>
                   setCroppedAreaPixels(croppedAreaPixels)

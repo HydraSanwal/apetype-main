@@ -4,14 +4,13 @@ import { LazyImage, type LazyImageProps } from '@/components/core/LazyImage';
 import { Modal } from '@/components/core/Modal';
 import type { Enums } from '@/utils/supabase/database';
 import { useDisclosure } from '@mantine/hooks';
-import type { Optional } from '@tanstack/react-query';
 import type { ComponentPropsWithoutRef } from 'react';
 import { RiGhostLine } from 'react-icons/ri';
 import { twMerge } from 'tailwind-merge';
 
 export interface AvatarProps extends ComponentPropsWithoutRef<'div'> {
   expandable?: boolean;
-  imageProps: Optional<LazyImageProps, 'alt'>;
+  imageProps: Partial<LazyImageProps>; // <-- replaced Optional with Partial
   shape?: Enums<'avatarShape'>;
 }
 

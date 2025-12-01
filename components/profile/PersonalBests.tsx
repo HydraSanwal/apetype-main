@@ -18,10 +18,18 @@ import { useMemo, useState } from 'react';
 import { RiCheckFill, RiMore2Fill } from 'react-icons/ri';
 import { twJoin } from 'tailwind-merge';
 
-type PersonalBest = Exclude<
-  Awaited<ReturnType<typeof getPersonalBestsByUserId>>['data'],
-  null
->[number];
+type PersonalBest = {
+  mode: (typeof MODES)[number];
+  mode2: string;
+  wpm: number;
+  raw: number;
+  accuracy: number;
+  consistency: number;
+  createdAt: string;
+  testId: string;
+  language: string;
+  lazyMode: boolean;
+};
 interface PersonalBestProps {
   mode: (typeof MODES)[number];
   amount: number;
@@ -75,7 +83,7 @@ function PersonalBest({ mode, amount, data }: PersonalBestProps) {
 
 export function PersonalBests({ userId }: { userId: string }) {
   const { settingsReference } = useSettings();
-  const { data } = useQuery(getPersonalBestsByUserId(supabase, userId));
+  const { data } = useQuery<PersonalBest[]>(getPersonalBestsByUserId(supabase, userId));
   const [modalOpened, modalHandler] = useDisclosure(false);
   const [selectedMode, setSelectedMode] = useState<(typeof MODES)[number]>('time');
   const personalBests = useMemo(() => {

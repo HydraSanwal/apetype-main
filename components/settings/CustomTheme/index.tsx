@@ -13,7 +13,6 @@ import { useTheme } from '@/context/themeContext';
 import { type CustomTheme, validateColor } from '@/utils/theme';
 import { valibotResolver } from '@hookform/resolvers/valibot';
 import { useDidUpdate, useDisclosure, useToggle } from '@mantine/hooks';
-import type { Optional } from '@tanstack/react-query';
 import { colord, extend } from 'colord';
 import a11yPlugin from 'colord/plugins/a11y';
 import { AnimatePresence, type HTMLMotionProps } from 'framer-motion';
@@ -80,7 +79,7 @@ export function CustomTheme({ className, ...props }: HTMLMotionProps<'div'>) {
   const themeButtonRef = useRef<HTMLButtonElement>(null);
   const customTheme = customThemes.find(({ id }) => id === customThemeId);
 
-  const addTheme = (theme: Optional<CustomTheme, 'id'>) => {
+  const addTheme = (theme: Omit<CustomTheme, 'id'> & Partial<Pick<CustomTheme, 'id'>>) => {
     const id = theme.id ?? crypto.randomUUID();
     setSettings(({ customThemes }) => {
       const newCustomThemes = [...customThemes, { ...theme, id }];

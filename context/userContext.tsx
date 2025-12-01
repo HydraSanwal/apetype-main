@@ -1,5 +1,4 @@
 'use client';
-
 import { getUserById } from '@/queries/get-user-by-id';
 import { userStatsByIdQueryKey } from '@/queries/get-user-stats-by-id';
 import supabase from '@/utils/supabase/browser';
@@ -11,7 +10,6 @@ import type {
 } from '@/utils/supabase/database-extended';
 import {
   useQuery,
-  useUpdateMutation,
   useUpsertItem,
 } from '@supabase-cache-helpers/postgrest-react-query';
 import { useQueryClient } from '@tanstack/react-query';
@@ -38,7 +36,6 @@ export const UserContext = createContext<UserContext | null>(null);
 export function UserProvider({ children, id }: UserProviderProps) {
   const queryClient = useQueryClient();
   const { data: user } = useQuery(getUserById(supabase, id), { enabled: !!id });
-  const { mutateAsync: _updateUser } = useUpdateMutation(supabase.from('users'), ['id']);
   const upsertStats = useUpsertItem<TableUpdate<'user_stats'>>({
     primaryKeys: ['userId'],
     table: 'user_stats',
@@ -48,7 +45,8 @@ export function UserProvider({ children, id }: UserProviderProps) {
   const updateUser: UserContext['updateUser'] = async (data) => {
     if (!id) return;
     try {
-      await _updateUser({ id, ...data });
+      await supabase.from('users').update(data).eq('id', id).throwOnError();
+      queryClient.invalidateQueries({ queryKey: ['users', id] });
     } catch (e) {
       toast.error(`Failed to update user data! ${(e as Error).message}`);
     }

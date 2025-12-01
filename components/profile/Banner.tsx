@@ -1,10 +1,11 @@
+'use client';
+
 import { LazyImage, type LazyImageProps } from '@/components/core/LazyImage';
-import type { Optional } from '@tanstack/react-query';
 import type { ComponentPropsWithoutRef } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 export interface BannerProps extends ComponentPropsWithoutRef<'div'> {
-  imageProps: Optional<LazyImageProps, 'alt'>;
+  imageProps: Partial<LazyImageProps>; // <-- Fixed here
 }
 
 export function Banner({

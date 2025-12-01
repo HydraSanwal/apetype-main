@@ -11,7 +11,6 @@ import { useColorPalette } from '@/hooks/useColorPalette';
 import type { CustomTheme, ThemeColors } from '@/utils/theme';
 import { valibotResolver } from '@hookform/resolvers/valibot';
 import { shallowEqual, useDidUpdate, useListState } from '@mantine/hooks';
-import type { Optional } from '@tanstack/react-query';
 import { colord } from 'colord';
 import { AnimatePresence } from 'framer-motion';
 import { useMemo, useState } from 'react';
@@ -21,7 +20,7 @@ import { RiLockFill, RiLockUnlockFill, RiQuestionLine } from 'react-icons/ri';
 import { type InferInput, maxLength, nonEmpty, object, pipe, string, trim } from 'valibot';
 
 export interface AIThemeGenerationModalProps extends ModalProps {
-  addTheme: (theme: Optional<CustomTheme, 'id'>) => void;
+  addTheme: (theme: Omit<CustomTheme, 'id'> & Partial<Pick<CustomTheme, 'id'>>) => void;
 }
 type Model = 'transformer' | 'diffusion' | 'random';
 type Creativity = 'low' | 'medium' | 'high';

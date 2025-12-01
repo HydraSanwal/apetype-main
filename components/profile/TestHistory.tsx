@@ -4,6 +4,8 @@ import { Button } from '@/components/core/Button';
 import { DataTable } from '@/components/core/DataTable';
 import { Modal } from '@/components/core/Modal';
 import { Tooltip } from '@/components/core/Tooltip';
+import type { TypingTestValues } from '@/context/typingTestContext';
+import type { Tables } from '@/utils/supabase/database';
 import { Chart } from '@/components/typing-test/Chart';
 import type { ChartProps } from '@/components/typing-test/Chart';
 import { testsByUserIdOptions } from '@/queries/get-tests-by-user-id';
@@ -45,7 +47,7 @@ export function TestHistory({ userId }: { userId: string }) {
   const { data, fetchNextPage, isFetchingNextPage, isFetching } = useInfiniteQuery(
     testsByUserIdOptions(supabase, userId, { orderBy, desc }),
   );
-  const tests = data?.pages.flatMap((page) => page.data as NonNullable<typeof page.data>);
+    const tests = data?.pages.flatMap((page) => page.data as Tables<'tests'>[]);
   const [chartData, setChartData] = useState<ChartProps>();
   const [chartModalOpened, chartModalHandler] = useDisclosure(false);
 
@@ -107,7 +109,10 @@ export function TestHistory({ userId }: { userId: string }) {
                   <Button
                     className='p-0 text-text hover:text-main focus-visible:text-main'
                     onClick={() => {
-                      setChartData({ chartData, elapsedTime: duration });
+                        setChartData({
+                        chartData: (chartData ?? { raw: [], wpm: [], errors: [] }) as TypingTestValues['chartData'],
+                        elapsedTime: duration,
+                      });
                       chartModalHandler.open();
                     }}
                     variant='text'

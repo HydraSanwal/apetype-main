@@ -59,14 +59,14 @@ export function UserStats({ userId }: { userId: string }) {
   const { data: userStats } = useSupabaseQuery(getUserStatsById(supabase, userId));
   const {
     completedTests = 0,
-    avgWpm,
-    avgRaw,
-    avgAccuracy,
-    avgConsistency,
-    highestWpm,
-    highestRaw,
-    highestAccuracy,
-    highestConsistency,
+    avgWpm = 0,
+    avgRaw = 0,
+    avgAccuracy = 0,
+    avgConsistency = 0,
+    highestWpm = 0,
+    highestRaw = 0,
+    highestAccuracy = 0,
+    highestConsistency = 0,
   } = userStats ?? {};
   const { data } = useInfiniteQuery(
     testsByUserIdOptions(supabase, userId, { orderBy, desc, pageSize: lastCount }),
