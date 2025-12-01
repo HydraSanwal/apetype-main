@@ -7,7 +7,7 @@
     "gentypes": "bunx supabase gen types --lang=typescript --schema public > utils/supabase/database.ts --project-id",
     "dev": "next dev",
     "dev:turbo": "next dev --turbo",
-    "build": "biome lint --write && next build --no-lint",
+    "build": "biome lint --write && genversion --es6 --semi utils/version.ts && next build --no-lint",
     "start": "next start",
     "lint": "biome lint",
     "release": "release-it"
